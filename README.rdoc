@@ -1,6 +1,6 @@
 = soleranetworks
 
-Description goes here.
+Solera Networks API gem
 
 == Note on Patches/Pull Requests
  

@@ -5,9 +5,9 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "soleranetworks"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "geoff.belknap@gmail.com"
+    gem.summary = %Q{Solera Networks API gem}
+    gem.description = %Q{Solera Neworks API gem}
+    gem.email = "gbelknap@soleranetworks.com"
     gem.homepage = "http://github.com/fracBlend/soleranetworks"
     gem.authors = ["fracBlend"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
