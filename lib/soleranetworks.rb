@@ -32,11 +32,11 @@ class SoleraNetworks
       # GEM Specific Method Paramaters
       #
       # DS Appliance Hostname / IP
-      :host                   =>  "10.1.3.174",
+      :host                   =>  "192.168.20.20",
       # Username for Accessing API
-      :user                   =>  "admin",
+      :user                   =>  "changeme",
       # Password
-      :pass                   =>  "Solera",
+      :pass                   =>  "changeme",
       # Filename for returned PCAP
       :output_filename        =>  "data.pcap",
       # Type of URI [pcap, sonar, applications, conversations, packetsizes, ipdiscovery, bandwidth]
@@ -50,7 +50,7 @@ class SoleraNetworks
       #:ethernet_protocol    =>  "ipv4",
       #:interface            =>  "eth2",
       #:ip_protocol          =>  "tcp",
-      :ipv4_address         =>  "10.1.3.221",
+      :ipv4_address         =>  "127.0.0.1",
       #:ipv4_destination     =>  "127.0.0.1",
       #:ipv4_source          =>  "127.0.0.1",
       #:ipv6_address         =>  "::ffff:127.0.0.1",
