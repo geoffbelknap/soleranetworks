@@ -1,0 +1,99 @@
+# soleranetworks
+
+Solera Networks API Gem
+
+## Description
+
+Handy little library and binary to automate building Solera Networks REST API calls
+
+### lib/soleranetworks.rb
+
+Library for use in your own ruby scripts to build API Call URIs
+
+### solera_get
+
+Command line tool that automatically builds an API Call and grabs the resulting PCAP.
+
+## Where to get a Demo VM Appliance 
+
+Don't have a Solera DS Network Forensics Appliance?
+
+Download a [VMWare Based Demo Appliance](http://www.soleranetworks.com/products/network-forensics-appliances/virtual-appliance)
+
+## Install
+	$ sudo gem install soleranetworks
+## Usage (solera_get)
+### Command Line Options
+	$ solera_get -h
+	Usage: solera_get [options] host ...
+	    -v, --verbose                    Output more information
+	    -u, --username  USERNAME         API Username
+	    -p, --password  PASSWORD         API Password
+	    -o, --output_filename FILENAME   Filename for Returned PCAP
+	    -b, --build_uri                  Build and Dump the URI ONLY
+	        --host  HOSTNAME             Hostname or IP of Solera Appliance
+	        --ethernet_address  MAC_ADDR ethernet_address
+	        --ethernet_source MAC_ADDR   ethernet_source
+	        --ethernet_destination  MAC_ADDR
+	                                     ethernet_destination
+	        --ethernet_protocol PROTOCOL ethernet_protocol
+	        --interface INTERFACE        interface
+	        --ip_protocol IP_PROTOCOL    ip_protocol
+	        --ipv4_address IPv4_ADDRESS  ipv4_address
+	        --ipv4_source IPv4_ADDRESS   ipv4_source
+	        --ipv4_destination IPv4_ADDRESS
+	                                     ipv4_destination
+	        --ipv6_address IPv6_ADDRESS  ipv6_address
+	        --ipv6_source IPv6_ADDRESS   ipv6_source
+	        --ipv6_destination IPv6_ADDRESS
+	                                     ipv6_destination
+	        --packet_length PACKET_LENGTH
+	                                     packet_length
+	        --tcp_port TCP_PORT          tcp_port
+	        --tcp_source_port TCP_PORT   tcp_source_port
+	        --tcp_destination_port TCP_PORT
+	                                     tcp_destination_port
+	        --udp_port UDP_PORT          udp_port
+	        --udp_source_port UDP_PORT   udp_source_port
+	        --udp_destination_port UDP_PORT
+	                                     udp_destination_port
+	        --timespan TIMESPAN          timespan
+	        --vlan_id VLAN_ID            vlan_id
+	    -h, --help                       Display this screen
+	
+### Pull all traffic from 1.2.3.4
+	$ solera_get -u username -p password --ipv4_address 1.2.3.4
+### Pull all traffic from 1.2.3.4 occurring on 03/02/2010
+	$ solera_get -u username -p password --ipv4_address 1.2.3.4 --timespan 03.02.2010.00.00.00.03.03.2010.00.00.00
+### Pull all DNS traffic larger than 52 bytes
+	$ solera_get -u username -p password --udp_port 53 --packet_length 53_to_1549
+## Usage lib/soleranetworks.rb
+	require 'rubygems'
+	require 'soleranetworks'
+	
+	options = {
+		:host			=>	'192.168.20.20',
+		:user			=>	'admin',
+		:pass			=>	'somePassword',
+		:ipv4_address	=>	'1.2.3.4',
+		:timespan	=>  (Time.now.getlocal-(60*5)).strftime('%m.%d.%Y.%H.%M.%S')+"."+Time.now.getlocal.strftime('%m.%d.%Y.%H.%M.%S')
+	}
+	request = SoleraNetworks.new(options)
+	
+	# Generate API Call URI
+	puts request.uri
+	# https://192.168.20.20/ws/pcap?method=deepsee&user=admin&password=somePassword&path=%2Ftimespan%2F03.25.2010.14.14.37.03.25.2010.14.19.37%2Fipv4_address%2F1.2.3.4%2Fdata.pcap
+		
+## Note on Patches/Pull Requests
+ 
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+## Copyright
+
+Copyright (c) 2010 fracBlend. See LICENSE for details.

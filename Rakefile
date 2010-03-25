@@ -11,7 +11,6 @@ begin
     gem.email = "gbelknap@soleranetworks.com"
     gem.homepage = "http://github.com/fracBlend/soleranetworks"
     gem.authors = ["fracBlend"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     gem.requirements << "Solera Networks DS (Appliance or VM), SoleraOS v4.x or greater"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
