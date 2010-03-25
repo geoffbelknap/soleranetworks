@@ -16,14 +16,13 @@ Gem::Specification.new do |s|
   s.executables = ["solera_get"]
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.md",
      "README.rdoc"
   ]
   s.files = [
     ".document",
      ".gitignore",
      "LICENSE",
-     "README.md",
+     "README.rdoc",
      "Rakefile",
      "VERSION",
      "bin/solera_get",
