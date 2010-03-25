@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{soleranetworks}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["fracBlend"]
-  s.date = %q{2010-03-24}
+  s.date = %q{2010-03-25}
   s.default_executable = %q{solera_get}
   s.description = %q{Solera Neworks API gem}
   s.email = %q{gbelknap@soleranetworks.com}

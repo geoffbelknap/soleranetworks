@@ -31,41 +31,13 @@ OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 # Default Options
 options = {
-  # Be Verbose?
   :verbose                =>  false,
-  # DS Appliance to Send
   :host                   =>  "192.168.20.20",
-  # Username for Accessing API
   :user                   =>  "changeme",
-  # Password
   :pass                   =>  "changeme",
-  # Filename for returned PCAP
   :output_filename        =>  "data.pcap",
-  #
-  # DeepSee API Method Parameters
-  #
-  # :ethernet_address     =>  "ff:ff:ff:ff:ff:ff",
-  # :ethernet_source      =>  "ff:ff:ff:ff:ff:ff",
-  # :ethernet_destination =>  "ff:ff:ff:ff:ff:ff",
-  # :ethernet_protocol    =>  "ipv4",
-  # :interface            =>  "eth2",
-  # :ip_protocol          =>  "tcp",
   :ipv4_address           =>  "127.0.0.1",
-  # :ipv4_destination     =>  "127.0.0.1",
-  # :ipv4_source          =>  "127.0.0.1",
-  # :ipv6_address         =>  "::ffff:127.0.0.1",
-  # :ipv6_destination     =>  "::ffff:127.0.0.1",
-  # :ipv6_source          =>  "::ffff:127.0.0.1",
-  # :packet_length        =>  "0_to_1549",
-  # :tcp_destination_port =>  "80",
-  # :tcp_port             =>  "80",
-  # :tcp_source_port      =>  "80",
-  # A Timespan is specified as start_time.end_time in the format of strftime('%m.%d.%Y.%I.%M.%S')
   :timespan               =>  (Time.now.getlocal-(60*5)).strftime('%m.%d.%Y.%H.%M.%S')+"."+Time.now.getlocal.strftime('%m.%d.%Y.%H.%M.%S'),
-  # :udp_destination_port =>  "53",
-  # :udp_port             =>  "53",
-  # :udp_source_port      =>  "53",
-  # :vlan_id              =>  "1"
 }
 
 optparse = OptionParser.new do|opts|
@@ -116,6 +88,9 @@ optparse = OptionParser.new do|opts|
 end
 
 optparse.parse!
+
+ARGV[0] ? options[:host] = ARGV[0] : options[:host]
+# ARGV[0].nil? ? options[:host] = ARGV[0]
 
 puts "Being Verbose" if options[:verbose]
 puts "Username : #{options[:user]}" if options[:user] && options[:verbose]
