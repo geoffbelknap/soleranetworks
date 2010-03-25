@@ -23,91 +23,88 @@ class SoleraNetworks
   KILO_SIZE = 1024.0
   
   def initialize(options={})
-    @options = options
-  end
-  
-  def uri(options={})
     @options = {
       #
       # GEM Specific Method Paramaters
       #
       # DS Appliance Hostname / IP
-      :host                   =>  "192.168.20.20",
+      :host                   =>  '', # ie: 192.168.20.20
       # Username for Accessing API
-      :user                   =>  "changeme",
+      :user                   =>  '',
       # Password
-      :pass                   =>  "changeme",
+      :pass                   =>  '',
       # Filename for returned PCAP
       :output_filename        =>  "data.pcap",
-      # Type of URI [pcap, sonar, applications, conversations, packetsizes, ipdiscovery, bandwidth]
-      :type                   => "pcap",
+      # Type of Request URI ['pcap', 'sonar', 'applications', 'conversations', 'packetsizes', 'ipdiscovery', 'bandwidth']
+      :type                   => 'pcap',
       #
       # DeepSee API Method Parameters
       #
-      #:ethernet_address     =>  "ff:ff:ff:ff:ff:ff",
-      #:ethernet_source      =>  "ff:ff:ff:ff:ff:ff",
-      #:ethernet_destination =>  "ff:ff:ff:ff:ff:ff",
-      #:ethernet_protocol    =>  "ipv4",
-      #:interface            =>  "eth2",
-      #:ip_protocol          =>  "tcp",
-      :ipv4_address         =>  "127.0.0.1",
-      #:ipv4_destination     =>  "127.0.0.1",
-      #:ipv4_source          =>  "127.0.0.1",
-      #:ipv6_address         =>  "::ffff:127.0.0.1",
-      #:ipv6_destination     =>  "::ffff:127.0.0.1",
-      #:ipv6_source          =>  "::ffff:127.0.0.1",
-      #:packet_length        =>  "0_to_1549",
-      #:tcp_destination_port =>  "80",
-      #:tcp_port             =>  "80",
-      #:tcp_source_port      =>  "80",
+      :ethernet_address     =>  '', # ff:ff:ff:ff:ff:ff
+      :ethernet_source      =>  '', # ff:ff:ff:ff:ff:ff
+      :ethernet_destination =>  '', # ff:ff:ff:ff:ff:ff
+      :ethernet_protocol    =>  '', # ipv4
+      :interface            =>  '', # eth2
+      :ip_protocol          =>  '', # tcp
+      :ipv4_address         =>  '', # 127.0.0.1
+      :ipv4_destination     =>  '', # 127.0.0.1
+      :ipv4_source          =>  '', # 127.0.0.1
+      :ipv6_address         =>  '', # ::ffff:127.0.0.1
+      :ipv6_destination     =>  '', # ::ffff:127.0.0.1
+      :ipv6_source          =>  '', # ::ffff:127.0.0.1
+      :packet_length        =>  '', # 0_to_1549
+      :tcp_destination_port =>  '', # 80
+      :tcp_port             =>  '', # 80
+      :tcp_source_port      =>  '', # 80
       # A Timespan is specified as start_time.end_time in the format of strftime('%m.%d.%Y.%I.%M.%S')
       # Default here is last 5 mins
       :timespan             =>  (Time.now.getlocal-(60*5)).strftime('%m.%d.%Y.%H.%M.%S')+"."+Time.now.getlocal.strftime('%m.%d.%Y.%H.%M.%S'),
-      #:start_time           =>  (Time.now.getlocal-(60*5)).strftime('%m.%d.%Y.%H.%M.%S'),
-      #:end_time             =>  Time.now.getlocal.strftime('%m.%d.%Y.%H.%M.%S'),
-      #:udp_destination_port =>  "53",
-      #:udp_port             =>  "53",
-      #:udp_source_port      =>  "53",
-      #:vlan_id              =>  "1"
+      # :start_time           =>  (Time.now.getlocal-(60*5)).strftime('%m.%d.%Y.%H.%M.%S'),
+      # :end_time             =>  Time.now.getlocal.strftime('%m.%d.%Y.%H.%M.%S'),
+      :udp_destination_port =>  '', # 53
+      :udp_port             =>  '', # 53
+      :udp_source_port      =>  '', # 53
+      :vlan_id              =>  '', # 1
     }.merge(options)
+  end
+  
+  def uri()
     # Build Call : Long and Drawn out for ease of reading/editing
     api_call =  "https://#{@options[:host]}/ws/pcap?method=deepsee&"
     api_call += "user=#{@options[:user]}&"
     api_call += "password=#{@options[:pass]}&"
     api_call += "path=%2F"
     # Time Params
-    api_call += "timespan%2F#{@options[:start_time]}.#{@options[:end_time]}%2F" if @options[:start_time] && @options[:end_time]
-    # or
-    api_call += "timespan%2F#{@options[:timespan]}%2F" if @options[:timespan] && !(@options[:start_time] && @options[:end_time])
+    api_call += "timespan%2F#{@options[:timespan]}%2F" unless @options[:timespan].empty?
     # Ethetnet Params
-    api_call += "ethernet_address%2F#{options[:ethernet_address]}%2F" if @options[:ethernet_address]
-    api_call += "ethernet_source%2F#{options[:ethernet_source]}%2F" if @options[:ethernet_source]
-    api_call += "ethernet_destination%2F#{@options[:ethernet_destination]}%2F" if @options[:ethernet_destination]
-    api_call += "ethernet_protocol%2F#{@options[:ethernet_protocol]}%2F" if @options[:ethernet_protocol]
+    api_call += "ethernet_address%2F#{@options[:ethernet_address]}%2F" unless @options[:ethernet_address].empty?
+    api_call += "ethernet_source%2F#{@options[:ethernet_source]}%2F" unless @options[:ethernet_source].empty?
+    api_call += "ethernet_destination%2F#{@options[:ethernet_destination]}%2F" unless @options[:ethernet_destination].empty?
+    api_call += "ethernet_protocol%2F#{@options[:ethernet_protocol]}%2F" unless @options[:ethernet_protocol].empty?
     # Interface Params
-    api_call += "interface%2F#{@options[:interface]}%2F" if @options[:interface]
+    api_call += "interface%2F#{@options[:interface]}%2F" unless @options[:interface].empty?
     # IP Params
-    api_call += "ip_protocol%2F#{@options[:ip_protocol]}%2F" if @options[:ip_protocol]
+    api_call += "ip_protocol%2F#{@options[:ip_protocol]}%2F" unless @options[:ip_protocol].empty?
     # IPv4 Params
-    api_call += "ipv4_address%2F#{@options[:ipv4_address]}%2F" if @options[:ipv4_address]
-    api_call += "ipv4_source%2F#{@options[:ipv4_source]}%2F" if @options[:ipv4_source]
-    api_call += "ipv4_destination%2F#{@options[:ipv4_destination]}%2F" if @options[:ipv4_destination]
+    api_call += "ipv4_address%2F#{@options[:ipv4_address]}%2F" unless @options[:ipv4_address].empty?
+    api_call += "ipv4_source%2F#{@options[:ipv4_source]}%2F" unless @options[:ipv4_source].empty?
+    api_call += "ipv4_destination%2F#{@options[:ipv4_destination]}%2F" unless @options[:ipv4_destination].empty?
     # IPv6 Params
-    api_call += "ipv6_address%2F#{@options[:ipv6_address]}%2F" if @options[:ipv6_address]
-    api_call += "ipv6_source%2F#{@options[:ipv6_source]}%2F" if @options[:ipv6_source]
-    api_call += "ipv6_destination%2F#{@options[:ipv6_destination]}%2F" if @options[:ipv6_destination]
+    api_call += "ipv6_address%2F#{@options[:ipv6_address]}%2F" unless @options[:ipv6_address].empty?
+    api_call += "ipv6_source%2F#{@options[:ipv6_source]}%2F" unless @options[:ipv6_source].empty?
+    api_call += "ipv6_destination%2F#{@options[:ipv6_destination]}%2F" unless @options[:ipv6_destination].empty?
     # Packet Params
-    api_call += "packet_length%2F#{@options[:packet_length]}%2F" if @options[:packet_length]
+    api_call += "packet_length%2F#{@options[:packet_length]}%2F" unless @options[:packet_length].empty?
     # TCP Params
-    api_call += "tcp_port%2F#{@options[:tcp_port]}%2F" if @options[:tcp_port]
-    api_call += "tcp_source_port%2F#{@options[:tcp_source]}%2F" if @options[:tcp_source]
-    api_call += "tcp_destination_port%2F#{@options[:tcp_destination_port]}%2F" if @options[:tcp_destination_port]
+    api_call += "tcp_port%2F#{@options[:tcp_port]}%2F" unless @options[:tcp_port].empty?
+    api_call += "tcp_source_port%2F#{@options[:tcp_source_port]}%2F" unless @options[:tcp_source_port].empty?
+    api_call += "tcp_destination_port%2F#{@options[:tcp_destination_port]}%2F" unless @options[:tcp_destination_port].empty?
     # UDP Params
-    api_call += "udp_port%2F#{@options[:udp_port]}%2F" if @options[:udp_port]
-    api_call += "udp_source_port%2F#{@options[:udp_source]}%2F" if @options[:udp_source]
-    api_call += "udp_destination_port%2F#{@options[:udp_destination_port]}%2F" if @options[:udp_destination_port]
+    api_call += "udp_port%2F#{@options[:udp_port]}%2F" unless @options[:udp_port].empty?
+    api_call += "udp_source_port%2F#{@options[:udp_source_port]}%2F" unless @options[:udp_source_port].empty?
+    api_call += "udp_destination_port%2F#{@options[:udp_destination_port]}%2F" unless @options[:udp_destination_port].empty?
     # VLAN Params
-    api_call += "vlan_id%2F#{@options[:vlan_id]}%2F" if @options[:vlan_id]
+    api_call += "vlan_id%2F#{@options[:vlan_id]}%2F" unless @options[:vlan_id].empty?
     # Type of URI [pcap, sonar, applications, conversations, packetsizes, ipdiscovery, bandwidth]
     api_call += case @options[:type]
       when "pcap" then "data.pcap"
@@ -119,7 +116,7 @@ class SoleraNetworks
       when "bandwidth" then ";reportIndex=5"
       else "data.pcap"
     end
-
+    
     return api_call  
   end
 
@@ -133,11 +130,11 @@ class SoleraNetworks
     end
   end
 
-  def get_pcap (call)
+  def get_pcap(call)
     open(call, 'User-Agent' => 'Wget') {|call| @pcap = call.read}
-    File.open(@options[:output_filename], 'w') {|f| 
-      f.write(@pcap) 
-      puts "#{@options[:output_filename]} : " + make_readable(f.stat.size, 2)
+    File.open(@options[:output_filename], 'w') {|file| 
+      file.write(@pcap) 
+      puts "#{@options[:output_filename]} : " + make_readable(file.stat.size, 2)
     }
   end
 end
