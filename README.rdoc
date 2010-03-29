@@ -6,6 +6,10 @@ Solera Networks API Gem
 
 Handy little library and binary to automate building Solera Networks REST API calls
 
+== More Examples
+
+Looking for more examples of Solera Networks' API usage in various other scripting languages? Check here: http://github.com/fracBlend/Solera-Example-Scripts
+
 == lib/soleranetworks.rb
 
 Library for use in your own ruby scripts to build API Call URIs
