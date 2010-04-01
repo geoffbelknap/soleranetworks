@@ -28,15 +28,15 @@ class SoleraNetworks
       # GEM Specific Method Paramaters
       #
       # DS Appliance Hostname / IP
-      :host                   =>  '', # ie: 192.168.20.20
+      :host                 =>  '', # ie: 192.168.20.20
       # Username for Accessing API
-      :user                   =>  '',
+      :user                 =>  '',
       # Password
-      :pass                   =>  '',
+      :pass                 =>  '',
       # Filename for returned PCAP
-      :output_filename        =>  "data.pcap",
+      :output_filename      =>  "data.pcap",
       # Type of Request URI ['pcap', 'sonar', 'applications', 'conversations', 'packetsizes', 'ipdiscovery', 'bandwidth']
-      :type                   => 'pcap',
+      :type                 =>  'pcap',
       #
       # DeepSee API Method Parameters
       #
@@ -132,7 +132,7 @@ class SoleraNetworks
 
   def get_pcap(call)
     open(call, 'User-Agent' => 'Wget') {|call| @pcap = call.read}
-    File.open(@options[:output_filename], 'w') {|file| 
+    File.open(@options[:output_filename], 'wb') {|file| 
       file.write(@pcap) 
       puts "#{@options[:output_filename]} : " + make_readable(file.stat.size, 2)
     }
